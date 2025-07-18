@@ -20,7 +20,7 @@ def home():
 
 # TASK: Create a GET route for "/events"
 # This route should return the full list of events as JSON
-@app.routes("/events", methods=["GET"])
+@app.route("/events", methods=["GET"])
 def get_events():
     return jsonify(events), 200
 

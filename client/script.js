@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("form").addEventListener("submit", (e) => {
     e.preventDefault();
     const titleInput = document.querySelector("#title");
-    const title = titleInput.ariaValueMax.trim();
+    const title = titleInput.value.trim();
 
     if (!title) return alert("Title is required");
 
