@@ -1,81 +1,181 @@
-# Lab: Building a Front-to-Back Event Catalog
+# Events Catalog
 
-## Learning Goals
+## Overview
 
-- Serve a homepage using Flask
-- Create API routes that return and accept JSON
-- Handle GET and POST requests on the back end
-- Connect a Flask back end to a static front end
-- Pass all provided back end tests
+Events Catalog is a lightweight web application that demonstrates how to connect a front end built with HTML and JavaScript to a Flask-powered back end. The application uses the Fetch API to communicate with Flask endpoints, allowing users to retrieve and add events without refreshing the page.
+
+This project showcases the fundamentals of client-server communication, JSON data exchange, and dynamic DOM updates.
+
+## Features
+
+* View a list of events retrieved from the Flask back end.
+* Add new events through a form.
+* Display newly added events immediately without reloading the page.
+* Exchange data between the client and server using JSON.
+* Validate user input before submitting requests.
+
+## Technologies Used
+
+* Python
+* Flask
+* HTML5
+* CSS3
+* JavaScript (Fetch API)
+
+## Project Structure
+
+```text
+events-catalog/
+│
+├── server.py
+├── requirements.txt
+├── templates/
+│   └── index.html
+├── static/
+│   ├── script.js
+│   └── style.css
+└── README.md
+```
+
+## API Endpoints
+
+### GET /
+
+Returns a welcome message in JSON format.
+
+**Response**
+
+```json
+{
+  "message": "Welcome!"
+}
+```
 
 ---
 
-## Setup Instructions
+### GET /events
 
-### 1. Clone the Repository
+Returns all events stored in the application.
 
-```bash
-git clone <repo-url>
-cd course-8-module-6-connect-client-server-lab
-```
+**Example Response**
 
-### 2. Create Your Environment
-
-**Using Pipenv:**
-```bash
-pipenv install
-pipenv shell
+```json
+[
+  {
+    "id": 1,
+    "title": "Yoga in the Park"
+  },
+  {
+    "id": 2,
+    "title": "Lake 5K Run"
+  }
+]
 ```
 
 ---
 
-## Running the App
+### POST /events
+
+Creates a new event.
+
+**Request Body**
+
+```json
+{
+  "title": "Community Cleanup"
+}
+```
+
+**Successful Response**
+
+```json
+{
+  "id": 3,
+  "title": "Community Cleanup"
+}
+```
+
+If the request does not include a title or the title is empty, the server returns an error response with an appropriate HTTP status code.
+
+## Installation
+
+1. Clone the repository.
+
+```bash
+git clone git@github.com:wanja-juma/course-8-module-6-connect-client-server-lab.git
+```
+
+2. Navigate to the project directory.
+
+```bash
+cd events-catalog
+```
+
+3. (Optional) Create and activate a virtual environment.
+
+**Linux/macOS**
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+**Windows**
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+4. Install the project dependencies.
+
+```bash
+pip install -r requirements.txt
+```
+
+## Running the Application
+
+Start the Flask development server.
 
 ```bash
 python server.py
 ```
 
-Then open `client/index.html` in your browser to view the frontend.
+The application will be available at:
 
----
+```text
+http://127.0.0.1:5000
+```
 
-## Running the Tests
+## How It Works
 
-To check your work, run:
+1. The client sends a **GET** request to retrieve the list of events.
+2. Flask returns the events as JSON.
+3. JavaScript dynamically renders the events on the page.
+4. When a user submits the form, JavaScript validates the input.
+5. A **POST** request containing JSON is sent to the server.
+6. Flask processes the request, stores the new event in memory, and returns the newly created event.
+7. JavaScript immediately updates the page by displaying the new event.
+
+## Testing
+
+Run the automated tests with:
 
 ```bash
 pytest
 ```
 
-All tests must pass to complete the lab.
+The tests verify that:
 
----
+* The welcome endpoint returns a successful JSON response.
+* The events endpoint returns a list of events.
+* New events can be added successfully.
+* Invalid event submissions return an appropriate error response.
 
-## Your Tasks
+## Future Improvements
 
-- [ ] Implement the `/` route to return a welcome message in JSON
-- [ ] Implement a `GET /events` route that returns all event data
-- [ ] Implement a `POST /events` route that accepts a new event and returns it with status 201
-- [ ] Return a `400 Bad Request` if required data is missing in a POST
-
----
-
-## File Structure
-
-```
-.
-├── client/
-│   ├── index.html
-│   ├── styles.css
-│   └── script.js
-├── server.py
-├── tests/
-│   └── test_app.py
-├── Pipfile
-├── Pipfile.lock
-├── README.md
-```
-
----
-
-Good luck! 🚀
+* Persist events using a database such as SQLite or PostgreSQL.
+* Add the ability to edit and delete events.
+* Include event dates, locations, and descriptions.
+* Improve the user interface with enhanced styling and responsive design.
+* Deploy the application using a production-ready WSGI server.
